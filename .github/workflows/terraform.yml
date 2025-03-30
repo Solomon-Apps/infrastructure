@@ -25,9 +25,6 @@ jobs:
     - name: 'Checkout'
       uses: actions/checkout@v4
 
-    - name: 'Setup Terragrunt'
-      uses: gruntwork-io/setup-terragrunt@v1.0.0
-
     - name: 'Terraform Format'
       id: fmt
       run: terragrunt fmt --terragrunt-log-level debug --terragrunt-non-interactive
