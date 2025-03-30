@@ -16,7 +16,7 @@ env:
 jobs:
   terraform:
     name: 'Terraform'
-    runs-on: self-hosted
+    runs-on: gh-runner
 
     steps:
     - name: 'Checkout'
