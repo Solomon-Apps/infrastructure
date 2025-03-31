@@ -17,6 +17,7 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: self-hosted
+    environment: 'Actions'
 
     steps:
     - name: 'Checkout'
