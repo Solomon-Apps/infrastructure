@@ -9,7 +9,7 @@ include "root" {
 inputs = {
   # VM configuration specific to k3s control plane
   vm_name_prefix = "k3s-control-plane"
-  vm_count = 1
+  vm_count = 3
   vm_memory = 4096  # 4GB RAM for control plane
   vm_cores = 4      # 4 CPU cores for control plane
   vm_disk_size = "70G"  # Larger disk for control plane
