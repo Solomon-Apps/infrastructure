@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    proxmox = {
-      source = "telmate/proxmox"
-      version = "2.9.0"
-    }
-  }
-}
-
 # Create VMs from template
 resource "proxmox_vm_qemu" "kube_nodes" {
   count       = var.vm_count
