@@ -41,7 +41,7 @@ jobs:
       id: plan
       if: github.event_name == 'pull_request'
       run: terragrunt run-all plan -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
-      continue-on-error: true
+      continue-on-error: false
 
     - name: 'Terraform Apply'
       id: apply
@@ -53,4 +53,4 @@ jobs:
       id: output
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: terragrunt run-all output --terragrunt-log-level debug --terragrunt-non-interactive
-      continue-on-error: true 
+      continue-on-error: false 
