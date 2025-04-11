@@ -1,9 +1,18 @@
 # Indicate what region to deploy the resources into
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "solomon-apps"
+    workspaces {
+      name = "proxmox-infrastructure"
+    }
+    token = get_env("TF_TOKEN", "")
+  }
+
   required_providers {
     proxmox = {
       source = "telmate/proxmox"
@@ -24,10 +33,10 @@ EOF
 # Indicate the input values to use for the variables of the module.
 inputs = {
   infra = "${path_relative_to_include()}"
-  
+
   # Proxmox connection details
   proxmox_api_url          = get_env("PROXMOX_API_URL", "")
   proxmox_api_token_id     = get_env("PROXMOX_API_TOKEN_ID", "")
   proxmox_api_token_secret = get_env("PROXMOX_API_TOKEN_SECRET", "")
-  proxmox_node = get_env("PROXMOX_NODE", "")
+  proxmox_nodes            = ["pve", "pvemiddle", "pvetop"]
 }

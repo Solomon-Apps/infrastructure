@@ -10,8 +10,9 @@ env:
   PROXMOX_API_URL: ${{ secrets.PROXMOX_API_URL }}
   PROXMOX_API_TOKEN_ID: ${{ secrets.PROXMOX_API_TOKEN_ID }}
   PROXMOX_API_TOKEN_SECRET: ${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-  PROXMOX_NODE: ${{ secrets.PROXMOX_NODE }}
+  PROXMOX_NODES: ${{ secrets.PROXMOX_NODES }}
   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+  TF_TOKEN: ${{ secrets.TF_TOKEN }}
 
 jobs:
   terraform:

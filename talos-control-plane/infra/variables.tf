@@ -13,9 +13,9 @@ variable "proxmox_api_token_secret" {
   type        = string
 }
 
-variable "proxmox_node" {
+variable "proxmox_nodes" {
   description = "Proxmox node name where VMs will be created"
-  type        = string
+  type        = list(string)
 }
 
 variable "vm_template_name" {
@@ -64,18 +64,8 @@ variable "vm_start_id" {
   default     = 100
 }
 
-variable "ssh_user" {
-  description = "SSH user for post-provisioning"
-  type        = string
-}
-
-variable "ssh_password" {
-  description = "Path to SSH private key for post-provisioning"
-  type        = string
-}
-
 variable "post_provisioning_script" {
   description = "Path to post-provisioning script to execute on VMs"
   type        = string
   default     = ""
-} 
+}
