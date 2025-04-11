@@ -33,7 +33,3 @@ EOF
 }
 
 skip = true
-
-inputs = {
-  proxmox_nodes = ["pve", "pvemiddle", "pvetop"]
-}
