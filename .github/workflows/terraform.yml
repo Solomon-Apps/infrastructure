@@ -16,6 +16,14 @@ jobs:
     - name: 'Checkout'
       uses: actions/checkout@v4
 
+    - name: 'Create auto.tfvars'
+      run: |
+        cat << EOF > terraform.auto.tfvars
+        proxmox_api_url = "${{ secrets.PROXMOX_API_URL }}"
+        proxmox_api_token_id = "${{ secrets.PROXMOX_API_TOKEN_ID }}"
+        proxmox_api_token_secret = "${{ secrets.PROXMOX_API_TOKEN_SECRET }}"
+        EOF
+
     - name: 'Terraform Format'
       id: fmt
       run: terragrunt fmt --terragrunt-log-level debug --terragrunt-non-interactive
@@ -34,13 +42,13 @@ jobs:
     - name: 'Terraform Plan'
       id: plan
       if: github.event_name == 'pull_request'
-      run: terragrunt run-all plan -var="proxmox_api_url=${{ secrets.PROXMOX_API_URL }}" -var="proxmox_api_token_id=${{ secrets.PROXMOX_API_TOKEN_ID }}" -var="proxmox_api_token_secret=${{ secrets.PROXMOX_API_TOKEN_SECRET }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all plan -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Apply'
       id: apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: terragrunt run-all apply -var="proxmox_api_url=${{ secrets.PROXMOX_API_URL }}" -var="proxmox_api_token_id=${{ secrets.PROXMOX_API_TOKEN_ID }}" -var="proxmox_api_token_secret=${{ secrets.PROXMOX_API_TOKEN_SECRET }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all apply -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: true
 
     - name: 'Terraform Output'
