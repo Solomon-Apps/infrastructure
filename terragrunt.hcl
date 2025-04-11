@@ -6,6 +6,9 @@ terraform {
   backend "remote" {
     hostname = "app.terraform.io"
     organization = "solomon-apps"
+    workspaces {
+      name = "proxmox-infrastructure"
+    }
   }
   required_providers {
     proxmox = {

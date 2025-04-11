@@ -13,8 +13,6 @@ env:
   PROXMOX_NODES: ${{ secrets.PROXMOX_NODES }}
   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
   TF_TOKEN: ${{ secrets.TF_TOKEN }}
-  TF_WORKSPACE: "proxmox-infrastructure"
-  TF_ORGANIZATION: "solomon-apps"
 
 jobs:
   terraform:
