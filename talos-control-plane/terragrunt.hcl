@@ -1,9 +1,9 @@
 terraform {
-  source = "./infra"
+  source = "."
 }
 
-locals {
-  common = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals
+include "root" {
+  path = find_in_parent_folders()
 }
 
 inputs = {
@@ -16,5 +16,4 @@ inputs = {
 
   # VM configuration
   vm_template_name = "talos-template"
-  proxmox_nodes    = local.common.proxmox_nodes
 }
