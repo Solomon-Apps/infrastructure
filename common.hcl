@@ -1,3 +1,3 @@
 locals {
-    proxmox_nodes            = ["pve", "pvemiddle", "pvetop"]
+    proxmox_nodes = ["pve", "pvemiddle", "pvetop"]
 }
