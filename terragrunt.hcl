@@ -10,7 +10,7 @@ terraform {
     workspaces {
       name = "proxmox-infrastructure"
     }
-    token = get_env("TF_TOKEN", "")
+    token = var.terraform_token
   }
 
   required_providers {
@@ -38,5 +38,6 @@ inputs = {
   proxmox_api_url          = get_env("PROXMOX_API_URL", "")
   proxmox_api_token_id     = get_env("PROXMOX_API_TOKEN_ID", "")
   proxmox_api_token_secret = get_env("PROXMOX_API_TOKEN_SECRET", "")
+  terraform_token          = get_env("TF_TOKEN", "")
   proxmox_nodes            = ["pve", "pvemiddle", "pvetop"]
 }
