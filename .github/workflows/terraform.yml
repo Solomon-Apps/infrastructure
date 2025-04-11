@@ -31,7 +31,7 @@ jobs:
 
     - name: 'Terraform Init'
       id: init
-      run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -backend-config="workspaces.name=proxmox-infrastructure" -backend-config="organization=solomon-apps" --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -backend-config="organization=solomon-apps" --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Validate'
