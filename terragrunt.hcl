@@ -30,8 +30,6 @@ EOF
 
 # Indicate the input values to use for the variables of the module.
 inputs = {
-  infra = "${path_relative_to_include()}"
-
   # Proxmox connection details
   proxmox_api_url          = get_env("PROXMOX_API_URL", "")
   proxmox_api_token_id     = get_env("PROXMOX_API_TOKEN_ID", "")
