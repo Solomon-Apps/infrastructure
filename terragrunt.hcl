@@ -32,9 +32,7 @@ terraform {
 EOF
 }
 
-exclude {
-  path = "."
-}
+skip = true
 
 inputs = {
   proxmox_nodes = ["pve", "pvemiddle", "pvetop"]
