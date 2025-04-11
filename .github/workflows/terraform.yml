@@ -23,53 +23,28 @@ jobs:
 
     - name: 'Terraform Init'
       id: init
-      run: |
-        export TF_TOKEN=${{ secrets.TF_TOKEN }}
-        export PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}
-        export PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}
-        export PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-        terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Validate'
       id: validate
-      run: |
-        export TF_TOKEN=${{ secrets.TF_TOKEN }}
-        export PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}
-        export PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}
-        export PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-        terragrunt run-all validate --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all validate --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Plan'
       id: plan
       if: github.event_name == 'pull_request'
-      run: |
-        export TF_TOKEN=${{ secrets.TF_TOKEN }}
-        export PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}
-        export PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}
-        export PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-        terragrunt run-all plan -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all plan -var="proxmox_api_url=${{ secrets.PROXMOX_API_URL }}" -var="proxmox_api_token_id=${{ secrets.PROXMOX_API_TOKEN_ID }}" -var="proxmox_api_token_secret=${{ secrets.PROXMOX_API_TOKEN_SECRET }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Apply'
       id: apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        export TF_TOKEN=${{ secrets.TF_TOKEN }}
-        export PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}
-        export PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}
-        export PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-        terragrunt run-all apply -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all apply -var="proxmox_api_url=${{ secrets.PROXMOX_API_URL }}" -var="proxmox_api_token_id=${{ secrets.PROXMOX_API_TOKEN_ID }}" -var="proxmox_api_token_secret=${{ secrets.PROXMOX_API_TOKEN_SECRET }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: true
 
     - name: 'Terraform Output'
       id: output
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        export TF_TOKEN=${{ secrets.TF_TOKEN }}
-        export PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}
-        export PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}
-        export PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}
-        terragrunt run-all output --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all output --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
