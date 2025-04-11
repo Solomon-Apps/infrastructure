@@ -21,8 +21,8 @@ inputs = {
   # VM configuration
   vm_template_name = "talos-template"
 
-  proxmox_api_url          = local.common.common_inputs.proxmox_api_url
-  proxmox_api_token_id     = local.common.common_inputs.proxmox_api_token_id
-  proxmox_api_token_secret = local.common.common_inputs.proxmox_api_token_secret
-  proxmox_nodes            = local.common.common_inputs.proxmox_nodes
+  proxmox_api_url          = local.common.proxmox_api_url
+  proxmox_api_token_id     = local.common.proxmox_api_token_id
+  proxmox_api_token_secret = local.common.proxmox_api_token_secret
+  proxmox_nodes            = local.common.proxmox_nodes
 }
