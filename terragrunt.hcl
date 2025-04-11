@@ -1,11 +1,4 @@
 terraform {
-  cloud {
-    organization = "solomon-apps"
-    workspaces {
-      name = "${path_relative_to_include()}"
-    }
-  }
-
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
@@ -14,6 +7,17 @@ terraform {
   }
 }
 
+
+remote_state {
+  backend = "remote"
+  hostname = "app.terraform.io"
+  config {
+    organization = "solomon-apps"
+    workspaces {
+      name = "${path_relative_to_include()}"
+    }
+  }
+}
 
 inputs = {
   # proxmox_api_url          = var.proxmox_api_url
