@@ -12,7 +12,6 @@ env:
   PROXMOX_API_TOKEN_SECRET: ${{ secrets.PROXMOX_API_TOKEN_SECRET }}
   PROXMOX_NODES: ${{ secrets.PROXMOX_NODES }}
   SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-  TF_TOKEN: ${{ secrets.TF_TOKEN }}
 
 jobs:
   terraform:
@@ -31,7 +30,7 @@ jobs:
 
     - name: 'Terraform Init'
       id: init
-      run: terragrunt run-all init --terragrunt-log-level debug --terragrunt-non-interactive
+      run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" --terragrunt-log-level debug --terragrunt-non-interactive
       continue-on-error: false
 
     - name: 'Terraform Validate'

@@ -18,11 +18,6 @@ variable "proxmox_nodes" {
   type        = list(string)
 }
 
-variable "terraform_token" {
-  description = "Terraform token"
-  type        = string
-}
-
 variable "vm_template_name" {
   description = "Name of the VM template to clone from"
   type        = string
