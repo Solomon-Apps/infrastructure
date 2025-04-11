@@ -33,3 +33,11 @@ provider "proxmox" {
 EOF
 }
 
+terraform {
+  extra_arguments "tfvars" {
+    commands = get_terraform_commands_that_need_vars()
+    arguments = [
+      "-var-file=${path_relative_from_include()}/terraform.auto.tfvars"
+    ]
+  }
+}
