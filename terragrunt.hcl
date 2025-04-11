@@ -37,7 +37,6 @@ prevent_destroy = true  # Stops it from being treated like a real module
 inputs = {}
 
 terraform {
-  source = "./empty"
   extra_arguments "tfvars" {
     commands = get_terraform_commands_that_need_vars()
     arguments = [
