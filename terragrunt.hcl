@@ -4,6 +4,7 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 terraform {
+  backend "remote" {)
   required_providers {
     proxmox = {
       source = "telmate/proxmox"
