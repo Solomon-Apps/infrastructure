@@ -6,7 +6,8 @@ generate "provider" {
 terraform {
   backend "remote" {
     hostname = "app.terraform.io"
-    workspace {
+    organization = "solomon-apps"
+    workspaces {
       name = "proxmox-infrastructure"
     }
   )
