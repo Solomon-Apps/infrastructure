@@ -10,7 +10,7 @@ terraform {
     workspaces {
       name = "proxmox-infrastructure"
     }
-  )
+  }
   required_providers {
     proxmox = {
       source = "telmate/proxmox"
