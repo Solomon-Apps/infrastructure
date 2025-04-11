@@ -6,6 +6,10 @@ include "root" {
   path = find_in_parent_folders()
 }
 
+locals {
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+}
+
 inputs = {
   # VM configuration specific to k3s control plane
   vm_name_prefix = "talos-control-plane"
@@ -17,6 +21,8 @@ inputs = {
   # VM configuration
   vm_template_name = "talos-template"
 
-  # Post-provisioning configuration
-  post_provisioning_script = "${get_path_from_repo_root()}/scripts/install-server-server.sh"
+  proxmox_api_url          = local.common.inputs.proxmox_api_url
+  proxmox_api_token_id     = local.common.inputs.proxmox_api_token_id
+  proxmox_api_token_secret = local.common.inputs.proxmox_api_token_secret
+  proxmox_nodes            = local.common.inputs.proxmox_nodes
 }
