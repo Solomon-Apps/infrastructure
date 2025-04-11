@@ -24,6 +24,15 @@ jobs:
     - name: 'Checkout'
       uses: actions/checkout@v4
 
+    - name: 'Set up environment'
+      run: |
+        echo "PROXMOX_API_URL=${{ secrets.PROXMOX_API_URL }}" >> $GITHUB_ENV
+        echo "PROXMOX_API_TOKEN_ID=${{ secrets.PROXMOX_API_TOKEN_ID }}" >> $GITHUB_ENV
+        echo "PROXMOX_API_TOKEN_SECRET=${{ secrets.PROXMOX_API_TOKEN_SECRET }}" >> $GITHUB_ENV
+        echo "PROXMOX_NODES=${{ secrets.PROXMOX_NODES }}" >> $GITHUB_ENV
+        echo "SSH_PASSWORD=${{ secrets.SSH_PASSWORD }}" >> $GITHUB_ENV
+        echo "TF_TOKEN=${{ secrets.TF_TOKEN }}" >> $GITHUB_ENV
+
     - name: 'Terraform Format'
       id: fmt
       run: terragrunt fmt --terragrunt-log-level debug --terragrunt-non-interactive
