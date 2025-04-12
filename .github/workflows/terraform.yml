@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+env:
+  PROXMOX_API_URL: ${{ secrets.PROXMOX_API_URL }}
+  PROXMOX_API_TOKEN_ID: ${{ secrets.PROXMOX_API_TOKEN_ID }}
+  PROXMOX_API_TOKEN_SECRET: ${{ secrets.PROXMOX_API_TOKEN_SECRET }}
+
 jobs:
   terraform:
     name: "Terraform"
@@ -16,29 +21,6 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: "Create auto.tfvars"
-        run: |
-          cat << EOF > terraform.auto.tfvars
-          proxmox_api_url = "${{ secrets.PROXMOX_API_URL }}"
-          proxmox_api_token_id = "${{ secrets.PROXMOX_API_TOKEN_ID }}"
-          proxmox_api_token_secret = "${{ secrets.PROXMOX_API_TOKEN_SECRET }}"
-          EOF
-
-      - name: "Copy auto.tfvars to Top-Level Dirs"
-        run: |
-          echo "Copying terraform.auto.tfvars to top-level directories..."
-          # Loop through all items ending with '/' (directories) in the current directory
-          for dir in */; do
-            # Check if it's actually a directory before copying
-            if [[ -d "$dir" ]]; then
-              echo "Copying to ${dir}..."
-              cp terraform.auto.tfvars "$dir"
-            else
-              echo "Skipping ${dir} (not a directory)"
-            fi
-          done
-          echo "Finished copying auto.tfvars."
-
       - name: "Terraform Format"
         id: fmt
         run: terragrunt fmt --terragrunt-log-level debug --terragrunt-non-interactive
@@ -46,22 +28,38 @@ jobs:
 
       - name: "Terraform Init"
         id: init
+        env:
+          PROXMOX_API_URL: ${{ env.PROXMOX_API_URL }}
+          PROXMOX_API_TOKEN_ID: ${{ env.PROXMOX_API_TOKEN_ID }}
+          PROXMOX_API_TOKEN_SECRET: ${{ env.PROXMOX_API_TOKEN_SECRET }}
         run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Validate"
         id: validate
+        env:
+          PROXMOX_API_URL: ${{ env.PROXMOX_API_URL }}
+          PROXMOX_API_TOKEN_ID: ${{ env.PROXMOX_API_TOKEN_ID }}
+          PROXMOX_API_TOKEN_SECRET: ${{ env.PROXMOX_API_TOKEN_SECRET }}
         run: terragrunt run-all validate --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Plan"
         id: plan
+        env:
+          PROXMOX_API_URL: ${{ env.PROXMOX_API_URL }}
+          PROXMOX_API_TOKEN_ID: ${{ env.PROXMOX_API_TOKEN_ID }}
+          PROXMOX_API_TOKEN_SECRET: ${{ env.PROXMOX_API_TOKEN_SECRET }}
         if: github.event_name == 'pull_request'
         run: terragrunt run-all plan -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Apply"
         id: apply
+        env:
+          PROXMOX_API_URL: ${{ env.PROXMOX_API_URL }}
+          PROXMOX_API_TOKEN_ID: ${{ env.PROXMOX_API_TOKEN_ID }}
+          PROXMOX_API_TOKEN_SECRET: ${{ env.PROXMOX_API_TOKEN_SECRET }}
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terragrunt run-all apply -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: true
