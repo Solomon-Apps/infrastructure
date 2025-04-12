@@ -28,7 +28,7 @@ jobs:
 
       - name: "Terraform Init"
         id: init
-        run: terragrunt run-all init -upgrade -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+        run: terragrunt run-all init -upgrade -backend-config="token=${{ secrets.TF_TOKEN }}" --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Validate"
@@ -39,13 +39,13 @@ jobs:
       - name: "Terraform Plan"
         id: plan
         if: github.event_name == 'pull_request'
-        run: terragrunt run-all plan -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+        run: terragrunt run-all plan --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Apply"
         id: apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terragrunt run-all apply -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+        run: terragrunt run-all apply --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Output"
