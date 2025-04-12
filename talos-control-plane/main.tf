@@ -8,7 +8,6 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   memory      = var.vm_memory
   cores       = var.vm_cores
   sockets     = 1
-  onboot      = true
   disk {
     type    = "scsi"
     storage = var.vm_storage
