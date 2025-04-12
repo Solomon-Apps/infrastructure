@@ -24,6 +24,21 @@ jobs:
           proxmox_api_token_secret = "${{ secrets.PROXMOX_API_TOKEN_SECRET }}"
           EOF
 
+      - name: "Copy auto.tfvars to Top-Level Dirs"
+        run: |
+          echo "Copying terraform.auto.tfvars to top-level directories..."
+          # Loop through all items ending with '/' (directories) in the current directory
+          for dir in */; do
+            # Check if it's actually a directory before copying
+            if [[ -d "$dir" ]]; then
+              echo "Copying to ${dir}..."
+              cp terraform.auto.tfvars "$dir"
+            else
+              echo "Skipping ${dir} (not a directory)"
+            fi
+          done
+          echo "Finished copying auto.tfvars."
+
       - name: "Terraform Format"
         id: fmt
         run: terragrunt fmt --terragrunt-log-level debug --terragrunt-non-interactive
