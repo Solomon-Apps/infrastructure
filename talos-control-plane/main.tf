@@ -11,8 +11,12 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   vm_state    = "running"
   disks {
     scsi {
-      storage = var.vm_storage
-      size    = var.vm_disk_size
+      scsi0 {
+        disk {
+          storage = var.vm_storage
+          size    = var.vm_disk_size
+        }
+      }
     }
   }
   network {
