@@ -12,6 +12,7 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   onboot      = true
   scsihw      = "virtio-scsi-single"
   hotplug     = "disk,network,usb"
+  cpu_type    = "x86-64-v2-AES"
   disks {
     scsi {
       scsi0 {
