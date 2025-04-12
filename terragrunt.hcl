@@ -19,7 +19,7 @@ terraform {
   backend "remote" {
     organization = "solomon-apps"
     workspaces {
-      name = path_relative_to_include()}"
+      name = "${path_relative_to_include()}"
     }
   }
   required_providers {
