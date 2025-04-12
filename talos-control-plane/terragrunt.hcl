@@ -7,7 +7,7 @@ include "module" {
 }
 
 generate "tfvars" {
-  path              = "terragrunt.auto.tfvars"
+  path              = "${path_relative_to_include()}.auto.tfvars"
   if_exists         = "overwrite"
   disable_signature = true
   contents          = <<-EOF
