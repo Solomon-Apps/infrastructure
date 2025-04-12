@@ -5,7 +5,7 @@ generate "provider" {
 provider "proxmox" {
   pm_api_url          = "${get_env("PROXMOX_API_URL")}"
   pm_api_token_id     = "${get_env("PROXMOX_API_TOKEN_ID")}"
-  pm_api_token_secret = "anyhting"
+  pm_api_token_secret = "${get_env("PROXMOX_API_TOKEN_SECRET")}"
   pm_tls_insecure     = true
 }
 EOF
@@ -16,12 +16,12 @@ generate "backend" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 terraform {
-  backend "remote" {
-    organization = "solomon-apps"
-    workspaces {
-      name = "${path_relative_to_include()}"
-    }
-  }
+  # backend "remote" {
+  #   organization = "solomon-apps"
+  #   workspaces {
+  #     name = "${path_relative_to_include()}"
+  #   }
+  # }
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
