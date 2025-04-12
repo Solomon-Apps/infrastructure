@@ -28,7 +28,7 @@ jobs:
 
       - name: "Terraform Init"
         id: init
-        run: terragrunt run-all init -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
+        run: terragrunt run-all init -upgrade -backend-config="token=${{ secrets.TF_TOKEN }}" -lock=false --terragrunt-log-level debug --terragrunt-non-interactive
         continue-on-error: false
 
       - name: "Terraform Validate"
