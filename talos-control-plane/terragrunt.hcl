@@ -7,7 +7,7 @@ include "module" {
 }
 
 generate "tfvars" {
-  path              = "${path_relative_to_include()}.auto.tfvars"
+  path              = "control-plane.auto.tfvars"
   if_exists         = "overwrite"
   disable_signature = true
   contents          = <<-EOF
