@@ -16,12 +16,12 @@ generate "backend" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 terraform {
-  backend "remote" {
-    organization = "solomon-apps"
-    workspaces {
-      name = "${path_relative_to_include()}"
-    }
-  }
+  # backend "remote" {
+  #   organization = "solomon-apps"
+  #   workspaces {
+  #     name = "${path_relative_to_include()}"
+  #   }
+  # }
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
