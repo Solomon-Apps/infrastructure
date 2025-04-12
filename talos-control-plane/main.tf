@@ -9,12 +9,16 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   cores       = var.vm_cores
   sockets     = 1
   vm_state    = "running"
-  disk {
-    type    = "scsi"
-    storage = var.vm_storage
-    size    = var.vm_disk_size
+  disks {
+    scsi {
+      disk {
+        storage = var.vm_storage
+        size    = var.vm_disk_size
+      }
+    }
   }
   network {
+    id     = 0
     bridge = "vmbr0"
     model  = "virtio"
   }
