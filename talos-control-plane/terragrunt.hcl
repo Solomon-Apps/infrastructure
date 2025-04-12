@@ -16,6 +16,7 @@ generate "tfvars" {
   vm_cores       = 8 
   vm_disk_size   = "100G"
   vm_template_name = "talos-template"
+  vm_iso = "talos-metal.iso"
   proxmox_nodes    = ["pve", "pvemiddle", "pvetop"]
 EOF
 }
