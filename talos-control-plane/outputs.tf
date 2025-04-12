@@ -17,4 +17,4 @@ output "vm_ids" {
   value = {
     for idx, vm in proxmox_vm_qemu.kube_nodes : idx => vm.vmid
   }
-} 
+}
