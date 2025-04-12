@@ -5,7 +5,7 @@ generate "provider" {
 provider "proxmox" {
   pm_api_url          = "${get_env("PROXMOX_API_URL")}"
   pm_api_token_id     = "${get_env("PROXMOX_API_TOKEN_ID")}"
-  pm_api_token_secret = "${get_env("PROXMOX_API_TOKEN_SECRET")}"
+  pm_api_token_secret = "anyhting"
   pm_tls_insecure     = true
 }
 EOF
