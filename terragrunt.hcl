@@ -16,16 +16,19 @@ generate "backend" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 terraform {
-  # backend "remote" {
-  #   organization = "solomon-apps"
-  #   workspaces {
-  #     name = "${path_relative_to_include()}"
-  #   }
-  # }
+  backend "remote" {
+    organization = "solomon-apps"
+    workspaces {
+      name = "${path_relative_to_include()}"
+    }
+  }
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
       version = "2.9.0"
+    }
+    null = {
+      source = "hashicorp/null"
     }
   }
 }
@@ -33,9 +36,3 @@ EOF
 }
 
 skip = true
-
-# inputs = {
-#   proxmox_api_url          = get_env("PROXMOX_API_URL", "")
-#   proxmox_api_token_id     = get_env("PROXMOX_API_TOKEN_ID", "")
-#   proxmox_api_token_secret = get_env("PROXMOX_API_TOKEN_SECRET", "")
-# }

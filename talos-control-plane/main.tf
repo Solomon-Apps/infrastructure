@@ -8,6 +8,7 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   memory      = var.vm_memory
   cores       = var.vm_cores
   sockets     = 1
+  vm_state    = "running"
   disk {
     type    = "scsi"
     storage = var.vm_storage
@@ -23,4 +24,15 @@ resource "proxmox_vm_qemu" "kube_nodes" {
       disk
     ]
   }
+}
+
+
+resource "null_resource" "wait_for_nodes" {
+  provisioner "local-exec" {
+    command = "echo Deployed Talos Control Plane"
+
+  }
+  depends_on = [
+    proxmox_vm_qemu.kube_nodes
+  ]
 }
