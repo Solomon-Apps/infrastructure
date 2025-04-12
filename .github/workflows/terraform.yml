@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+env:
+  PROXMOX_API_URL: ${{ secrets.PROXMOX_API_URL }}
+  PROXMOX_API_TOKEN_ID: ${{ secrets.PROXMOX_API_TOKEN_ID }}
+  PROXMOX_API_TOKEN_SECRET: ${{ secrets.PROXMOX_API_TOKEN_SECRET }}
+
 jobs:
   terraform:
     name: "Terraform"

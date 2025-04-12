@@ -3,9 +3,9 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "proxmox" {
-  pm_api_url          = var.proxmox_api_url
-  pm_api_token_id     = var.proxmox_api_token_id
-  pm_api_token_secret = var.proxmox_api_token_secret
+  pm_api_url          = "${get_env("PROXMOX_API_URL")}"
+  pm_api_token_id     = "${get_env("PROXMOX_API_TOKEN_ID")}"
+  pm_api_token_secret = "${get_env("PROXMOX_API_TOKEN_SECRET")}"
   pm_tls_insecure     = true
 }
 EOF
