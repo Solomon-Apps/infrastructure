@@ -34,7 +34,7 @@ variable "vm_cores" {
 variable "vm_storage" {
   description = "Storage pool name"
   type        = string
-  default     = ""
+  default     = "local-lvm"
 }
 
 variable "vm_disk_size" {
