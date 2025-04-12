@@ -8,12 +8,19 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   memory      = var.vm_memory
   cores       = var.vm_cores
   sockets     = 1
-  disk {
-    type    = "scsi"
-    storage = var.vm_storage
-    size    = var.vm_disk_size
+  vm_state    = "running"
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage = var.vm_storage
+          size    = var.vm_disk_size
+        }
+      }
+    }
   }
   network {
+    id     = 0
     bridge = "vmbr0"
     model  = "virtio"
   }
@@ -23,4 +30,15 @@ resource "proxmox_vm_qemu" "kube_nodes" {
       disk
     ]
   }
+}
+
+
+resource "null_resource" "wait_for_nodes" {
+  provisioner "local-exec" {
+    command = "echo Deployed Talos Control Plane"
+
+  }
+  depends_on = [
+    proxmox_vm_qemu.kube_nodes
+  ]
 }
