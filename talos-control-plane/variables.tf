@@ -49,6 +49,11 @@ variable "vm_start_id" {
   default     = 100
 }
 
+variable "vm_iso" {
+  description = "ISO name"
+  type        = string
+}
+
 variable "post_provisioning_script" {
   description = "Path to post-provisioning script to execute on VMs"
   type        = string

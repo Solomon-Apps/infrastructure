@@ -9,12 +9,24 @@ resource "proxmox_vm_qemu" "kube_nodes" {
   cores       = var.vm_cores
   sockets     = 1
   vm_state    = "running"
+  onboot      = true
+  scsihw      = "virtio-scsi-single"
+  hotplug     = "disk,network,usb"
+  cpu_type    = "x86-64-v2-AES"
   disks {
     scsi {
       scsi0 {
         disk {
-          storage = var.vm_storage
-          size    = var.vm_disk_size
+          storage  = var.vm_storage
+          size     = var.vm_disk_size
+          iothread = true
+        }
+      }
+    }
+    ide {
+      ide2 {
+        cdrom {
+          iso = var.vm_iso
         }
       }
     }
